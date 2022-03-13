@@ -1,0 +1,24 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: config-server
+  template:
+    metadata:
+      labels:
+        component: config-server
+    spec:
+      containers:
+        - name: config-server-container
+          image: dipanjalmaitra/config-server
+          ports:
+            - containerPort: 8888
+          env:
+            - name: GIT_REPO_URI
+              value: https://github.com/dipanjal/git-config-repo

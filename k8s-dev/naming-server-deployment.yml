@@ -1,0 +1,21 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: naming-server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: naming-server
+  template:
+    metadata:
+      labels:
+        component: naming-server
+    spec:
+      containers:
+        - name: naming-server-container
+          image: dipanjalmaitra/naming-server
+          ports:
+            - containerPort: 8761

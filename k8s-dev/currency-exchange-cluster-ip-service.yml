@@ -1,0 +1,13 @@
+# @format
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: currency-exchange-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: currency-exchange
+  ports:
+    - port: 8000
+      targetPort: 8000

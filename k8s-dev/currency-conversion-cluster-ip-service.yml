@@ -1,0 +1,13 @@
+# @format
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: currency-conversion-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: currency-conversion
+  ports:
+    - port: 8100
+      targetPort: 8100

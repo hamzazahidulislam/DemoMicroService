@@ -1,28 +1,29 @@
-version: "3.9"
+# @format
+
+version: '3.9'
 
 services:
-
   naming-server:
     depends_on:
       - config-server
     container_name: naming-server-container
-    build:
-      context: ./NamingServer
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./NamingServer
+    #   dockerfile: Dockerfile
     image: dipanjalmaitra/naming-server:latest
     ports:
-      - "8761:8761"
+      - '8761:8761'
     networks:
       - common-net
 
   config-server:
     container_name: config-server-container
-    build:
-      context: ./ConfigServer
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./ConfigServer
+    #   dockerfile: Dockerfile
     image: dipanjalmaitra/config-server:latest
     ports:
-      - "8888:8888"
+      - '8888:8888'
     environment:
       GIT_REPO_URI: https://github.com/dipanjal/git-config-repo
     networks:
@@ -32,12 +33,12 @@ services:
     depends_on:
       - naming-server
     container_name: api-gateway-container
-    build:
-      context: ./ApiGateway
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./ApiGateway
+    #   dockerfile: Dockerfile
     image: dipanjalmaitra/api-gateway:latest
     ports:
-      - "8765:8765"
+      - '8765:8765'
     networks:
       - common-net
     environment:
@@ -49,12 +50,12 @@ services:
       - naming-server
       - config-server
     container_name: currency-exchange-container
-    build:
-      context: ./CurrencyExchangeService
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./CurrencyExchangeService
+    #   dockerfile: Dockerfile
     image: dipanjalmaitra/currency-exchange:latest
     ports:
-      - "8000:8000"
+      - '8000:8000'
     networks:
       - common-net
     environment:
@@ -69,12 +70,12 @@ services:
       - config-server
       - currency-exchange
     container_name: currency-conversion-container
-    build:
-      context: ./CurrencyConversionService
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./CurrencyConversionService
+    #   dockerfile: Dockerfile
     image: dipanjalmaitra/currency-conversion:latest
     ports:
-      - "8100:8100"
+      - '8100:8100'
     networks:
       - common-net
     environment:
@@ -87,12 +88,12 @@ services:
       - naming-server
       - api-gateway
     container_name: geo-location-container
-    build:
-      context: ./GeoLocationService
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./GeoLocationService
+    #   dockerfile: Dockerfile
     image: dipanjalmaitra/geo-service:latest
     ports:
-      - "8200:8200"
+      - '8200:8200'
     networks:
       - common-net
     environment:
@@ -101,6 +102,9 @@ services:
       CONFIG_SERVER_URL: http://config-server:8888
     restart: on-failure
 
+# networks:
+#   common-net:
+#     external: true
 networks:
   common-net:
-    external: true
+    driver: bridge

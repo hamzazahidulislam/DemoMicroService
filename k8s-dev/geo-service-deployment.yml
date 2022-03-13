@@ -1,0 +1,28 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geo-service-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: geo-service
+  template:
+    metadata:
+      labels:
+        component: geo-service
+    spec:
+      containers:
+        - name: geo-service-container
+          image: dipanjalmaitra/geo-service
+          ports:
+            - containerPort: 8200
+          env:
+            - name: ACTIVE_PROFILE
+              value: default
+            - name: EUREKA_URI
+              value: http://naming-server-cluster-ip-service:8761/eureka
+            - name: CONFIG_SERVER_URL
+              value: http://config-server-cluster-ip-service:8888
