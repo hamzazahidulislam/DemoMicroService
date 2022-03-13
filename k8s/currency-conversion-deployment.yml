@@ -1,0 +1,28 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-conversion-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: currency-conversion
+  template:
+    metadata:
+      labels:
+        component: currency-conversion
+    spec:
+      containers:
+        - name: currency-conversion-container
+          image: dipanjalmaitra/currency-conversion
+          ports:
+            - containerPort: 8100
+          env:
+            - name: ACTIVE_PROFILE
+              value: default
+            - name: EUREKA_URI
+              value: http://naming-server-cluster-ip-service:8761/eureka
+            - name: CONFIG_SERVER_URL
+              value: http://config-server-cluster-ip-service:8888

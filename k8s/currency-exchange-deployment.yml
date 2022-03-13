@@ -1,0 +1,26 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-exchange-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: currency-exchange
+  template:
+    metadata:
+      labels:
+        component: currency-exchange
+    spec:
+      containers:
+        - name: currency-exchange-container
+          image: dipanjalmaitra/currency-exchange
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ACTIVE_PROFILE
+              value: default
+            - name: EUREKA_URI
+              value: http://naming-server-cluster-ip-service:8761/eureka
