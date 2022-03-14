@@ -5,7 +5,7 @@ kind: Service
 metadata:
   name: naming-server-cluster-ip-service
 spec:
-  clusterIP: None
+  type: ClusterIP
   selector:
     component: naming-server
   ports:
