@@ -21,7 +21,7 @@ spec:
             [
               '/bin/sh',
               '-c',
-              'for i in $(seq 1 300); do nc -zvw1 naming-server-cluster-ip-service 8761 && exit 0 || sleep 3; done; exit 1'
+              'for i in $(seq 1 300); do nc -zvw1 config-server-cluster-ip-service 8888 && exit 0 || sleep 3; done; exit 1'
             ]
       containers:
         - name: geo-service-container
