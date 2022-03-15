@@ -14,6 +14,15 @@ spec:
       labels:
         component: api-gateway
     spec:
+      initContainers:
+        - name: init-wait-for-db
+          image: alpine
+          command:
+            [
+              '/bin/sh',
+              '-c',
+              'for i in $(seq 1 300); do nc -zvw1 naming-server-cluster-ip-service 8761 && exit 0 || sleep 3; done; exit 1'
+            ]
       containers:
         - name: api-gateway-container
           image: dipanjalmaitra/api-gateway
