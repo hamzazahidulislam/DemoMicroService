@@ -14,15 +14,6 @@ spec:
       labels:
         component: currency-conversion
     spec:
-      initContainers:
-        - name: init-wait-for-db
-          image: alpine
-          command:
-            [
-              '/bin/sh',
-              '-c',
-              'for i in $(seq 1 300); do nc -zvw1 config-server-cluster-ip-service 8888 && exit 0 || sleep 3; done; exit 1'
-            ]
       containers:
         - name: currency-conversion-container
           image: dipanjalmaitra/currency-conversion
